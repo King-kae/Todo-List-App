@@ -43,7 +43,7 @@ function app(){
     state.todos.push(todo)
 
     ui?.todos.prepend(createTodo(todo))
-    console.log(typeof(state.todos[0].id))
+    console.log(state.todos)
 
   }
 
@@ -53,7 +53,7 @@ function app(){
     let item = this.parentNode
     let itemId = item.id
     const taskToEdit = item.childNodes[0]
-    console.log(editBtn)
+    // console.log(editBtn)
     const targetItem = state.todos.find((entries) => entries.id === parseInt(itemId))
     if(targetItem.completed === false) {
       taskToEdit.contentEditable = true
@@ -61,20 +61,19 @@ function app(){
       editBtn.textContent = 'Save'
     }
 
-    taskToEdit.addEventListener('blur', function(e) {
-      e.preventDefault()
+    taskToEdit.addEventListener("blur", function() {
+      // e.preventDefault()
+      // taskToEdit.contentEditable = false
+      editBtn.textContent = 'Edit'
       targetItem.text = taskToEdit.textContent
-      state.todos.push(targetItem)
+      console.log(state.todos)
     })
-    return console.log(targetItem)
-    return alert('we live here')
   }
 
-  function deleteTodo() {
-    // event.preventDefault()
+  function deleteTodo(e) {
+    e.preventDefault()
     let item = this.parentNode
     let itemId = item.id
-    // return console.log(typeof(itemId))
     const targetIndex = state.todos.findIndex((entries) => entries.id === parseInt(itemId))
     if (targetIndex === -1){
       return console.log('item not found in state')
