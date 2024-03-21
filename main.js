@@ -22,7 +22,7 @@ function app(){
 
     item = mk('li', { className: 'todo-item', id: `${todo.id}` }, [
       ( text = mk('span', {}, [todo.text])),
-      mk('button', { className: "todoBtn", id: `${todo.id}`, onclick: editTodo }, ['Edit']),
+      mk('button', { className: "todoBtn edit_btn", id: `${todo.id}`, onclick: editTodo }, ['Edit']),
       mk('button', { className: "todoBtn", id: `${todo.id}`, onclick: deleteTodo }, ['Delete'])
     ])
     return item
