@@ -122,6 +122,6 @@ li span{
   display: flex;
   align-items: center
 }
-.edit_btn{
+.edit_btn, .delete_btn{
   margin-inline-end: 0.5rem;
 }

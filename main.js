@@ -14,7 +14,10 @@ function app(){
       ( ui.input = mk('input', { className: 'todo', type: 'text', id: 'todo', placeholder: 'Enter a todo' })),
       mk('button', { type: 'submit', id: 'submit', onclick: add }, ['Add Todo'])
     ])),
-    (ui.todos = mk('ul', { id: 'todos', className: 'todos'}))
+    mk('h2', {}, ['Uncompleted Tasks']),
+    (ui.todos = mk('ul', { id: 'todos', className: 'todos'})),
+    mk('h2', {}, ['Completed Tasks']),
+    (ui.doneTodos = mk('ul', { id: 'doneTodos', className: 'doneTodos'}))
   ]);
 
   function createTodo(todo) {
@@ -23,8 +26,17 @@ function app(){
     item = mk('li', { className: 'todo-item', id: `${todo.id}` }, [
       ( text = mk('span', {}, [todo.text])),
       mk('button', { className: "todoBtn edit_btn", id: `${todo.id}`, onclick: editTodo }, ['Edit']),
-      mk('button', { className: "todoBtn", id: `${todo.id}`, onclick: deleteTodo }, ['Delete'])
+      mk('button', { className: "todoBtn delete_btn", id: `${todo.id}`, onclick: deleteTodo }, ['Delete']),
+      mk('button', { className: "todoBtn", id: `${todo.id}`, onclick: doneTodo }, ['Done'])
     ])
+    return item
+  }
+  function completedTodo(todo) {
+    let item, text    
+    item = mk('li', { className: 'done-list' }, [
+      (text = mk('span', {}, [todo.text]))
+    ])
+    
     return item
   }
 
@@ -86,6 +98,18 @@ function app(){
   }
 
   
+  
+  function doneTodo(){
+    const doneBtn = this
+    let item = this.parentNode
+    let itemId = item.id
+    const taskToEdit = item.childNodes[0]
+    const targetItem = state.todos.find((entries) => entries.id === parseInt(itemId))
+    targetItem.completed = true
+    item.remove()
+    ui?.doneTodos.prepend(completedTodo(targetItem))
+
+  }
 }
 
 function render() {
